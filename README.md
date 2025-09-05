@@ -7,6 +7,7 @@ Thêm các secrets sau vào repository GitHub:
 ### AWS Credentials
 - `AWS_ACCESS_KEY_ID` - AWS Access Key ID
 - `AWS_SECRET_ACCESS_KEY` - AWS Secret Access Key
+- `GITHUB_ACCESS_TOKEN` - GitHub Personal Access Token
 
 ### Application Secrets  
 - `VITE_API_URL` - URL của API backend

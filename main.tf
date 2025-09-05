@@ -12,8 +12,9 @@ provider "aws" {
 }
 
 resource "aws_amplify_app" "frontend" {
-  name       = var.app_name
-  repository = var.repository_url
+  name         = var.app_name
+  repository   = var.repository_url
+  access_token = var.github_access_token
 
   build_spec = <<-EOT
     version: 1
@@ -76,25 +77,5 @@ resource "aws_amplify_domain_association" "frontend" {
   wait_for_verification = false
 }
 
-resource "aws_route53_zone" "main" {
-  count = var.domain_name != "" ? 1 : 0
-  name  = var.domain_name
 
-  tags = {
-    Environment = var.environment
-    Project     = var.project_name
-  }
-}
 
-resource "aws_route53_record" "amplify" {
-  count   = var.domain_name != "" ? 1 : 0
-  zone_id = aws_route53_zone.main[0].zone_id
-  name    = var.domain_name
-  type    = "A"
-
-  alias {
-    name                   = aws_amplify_domain_association.frontend[0].certificate_verification_dns_record
-    zone_id                = aws_amplify_domain_association.frontend[0].certificate_verification_dns_record
-    evaluate_target_health = false
-  }
-}

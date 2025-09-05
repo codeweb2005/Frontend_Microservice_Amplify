@@ -44,3 +44,9 @@ variable "environment_variables" {
   type        = map(string)
   default     = {}
 }
+
+variable "github_access_token" {
+  description = "GitHub Personal Access Token"
+  type        = string
+  sensitive   = true
+}

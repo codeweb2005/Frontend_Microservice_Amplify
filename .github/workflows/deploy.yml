@@ -38,6 +38,8 @@ jobs:
         project_name   = "frontend-project"
         domain_name    = "${{ secrets.DOMAIN_NAME }}"
         
+        github_access_token = "${{ secrets.GITHUB_ACCESS_TOKEN }}"
+        
         environment_variables = {
           "VITE_API_URL"           = "${{ secrets.VITE_API_URL }}"
           "VITE_STRIPE_PUBLIC_KEY" = "${{ secrets.VITE_STRIPE_PUBLIC_KEY }}"

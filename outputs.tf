@@ -18,12 +18,7 @@ output "custom_domain" {
   value       = var.domain_name != "" ? "https://${var.domain_name}" : null
 }
 
-output "route53_zone_id" {
-  description = "Route 53 Zone ID"
-  value       = var.domain_name != "" ? aws_route53_zone.main[0].zone_id : null
-}
-
-output "route53_name_servers" {
-  description = "Route 53 Name Servers"
-  value       = var.domain_name != "" ? aws_route53_zone.main[0].name_servers : null
+output "domain_association_arn" {
+  description = "Domain association ARN"
+  value       = var.domain_name != "" ? aws_amplify_domain_association.frontend[0].arn : null
 }
