@@ -1,0 +1,55 @@
+name: Deploy Frontend to AWS Amplify
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  terraform:
+    name: Terraform Deploy
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v3
+      with:
+        terraform_version: 1.5.0
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
+
+    - name: Create terraform.tfvars
+      run: |
+        cat > terraform.tfvars << EOF
+        aws_region     = "us-east-1"
+        app_name       = "frontend-app"
+        repository_url = "${{ secrets.REPOSITORY_URL }}"
+        branch_name    = "main"
+        environment    = "production"
+        project_name   = "frontend-project"
+        domain_name    = "${{ secrets.DOMAIN_NAME }}"
+        
+        environment_variables = {
+          "VITE_API_URL"           = "${{ secrets.VITE_API_URL }}"
+          "VITE_STRIPE_PUBLIC_KEY" = "${{ secrets.VITE_STRIPE_PUBLIC_KEY }}"
+        }
+        EOF
+
+    - name: Terraform Init
+      run: terraform init
+
+    - name: Terraform Plan
+      run: terraform plan
+
+    - name: Terraform Apply
+      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      run: terraform apply -auto-approve

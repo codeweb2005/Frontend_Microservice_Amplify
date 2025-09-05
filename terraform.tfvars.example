@@ -1,0 +1,12 @@
+aws_region     = "us-east-1"
+app_name       = "my-frontend-app"
+repository_url = "https://github.com/username/repository"
+branch_name    = "main"
+environment    = "production"
+project_name   = "my-project"
+domain_name    = "example.com"
+
+environment_variables = {
+  "VITE_API_URL"           = "https://api.example.com"
+  "VITE_STRIPE_PUBLIC_KEY" = "pk_live_your_stripe_public_key"
+}
