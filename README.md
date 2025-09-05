@@ -30,5 +30,3 @@ The workflow will automatically run when:
 * Code is pushed to the `main` branch (will apply changes)
 * A Pull Request is created (will run plan only for review)
 
-
-Do you want me to also rewrite this in a **step-by-step tutorial style** (like a guide for beginners), or keep it as a **concise reference** for developers?
