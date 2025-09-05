@@ -23,10 +23,4 @@ Add the following secrets to your GitHub repository:
 2. Click **New repository secret**
 3. Add each secret with its corresponding name and value
 
-## Deployment
-
-The workflow will automatically run when:
-
-* Code is pushed to the `main` branch (will apply changes)
-* A Pull Request is created (will run plan only for review)
 
